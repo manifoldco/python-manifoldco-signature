@@ -1,0 +1,22 @@
+language: python
+python:
+- '2.7'
+- '3.6'
+branches:
+  only:
+  - master
+  - /^v([0-9]+)\.([0-9]+)\.([0-9]+)$/
+install: pip install -e .[test]
+script: python setup.py test
+notifications:
+  slack:
+    secure: WRhjaSyRwUMS+HklJ+2cbNbHaUSuWA8eKvwU+lpu4y0Ip17ra0gxpDRLkCYmgbdEzBMXtHk1VfkOtT+H0/6JkJOAM2XvJ4jd7ECfzPBu8sO2jzcPeTa2ycHVYy718RnYxZZdTJkjjJJqQGhfQfYnak/yM1l+DJnt/ylHATWclC+rcw+gE0y5vfYFromuT4UxV/wcLc+S1NCMVlOhhhghdDZiQapXVS4cmHxfYIyDuPrlTKeTqiankyVz5qRj+ldPMgbybdpfeRCg2Us6kjiYZ3uw41IKG7c+jilmUkTDbkrfiU6txkZap+MwsQhJcDZgaSMbGKXktY4UO6VQ3rOiIIwr2M6SCW3rafN97UgOtOaLNHTpwdbW3vkN7Z8OBQ5XtymAteAwnBUNkd4WDJbATz8GdiiuE7NECzolTelRuL9QgmlaJH31TGdAOjvk6Q0Nn6zorHWXNZuxU1S/9PxK1Q8iXtgmHI+Atod7k1wVUMVE60PXyaGZqBaAnfrZYj3wQm8/Wr2wgATUEUcAzNW4/sO6YlnspVn2LVe7hIVQ/ZyXNdxd0/uf1JK1o3vL+CS6IY6jiJ3v+QuzbTITJfkDMm2hKNW3Lb1kjAxR87Uv6sDtU/LW8LRWDxQ8qQANo85iQIc1/tTs7XFySfhMHDQJASO02mRvVNiExUP0RUtYOGk=
+deploy:
+  provider: pypi
+  user: manifoldco
+  password:
+    secure: o2z3Ua5rEsDwYITHiimhp5Rr7tA13Jo4ExCuCQSYesnvpV26xpiwtV1e0YPRlJgRnPythvCTI4MCMEbjhUiC30Z9eV3+27mb1zka0KMqb4ggHajKNtDvaYy2VONFJOkgoMhD0g7qzRVEI45uQrCy5LSwfDtGzi8vh1Obslq/4GKD4gO3ZFvBN7qES+ZHyDHek0Mi83RcOuAE6vzsqhVaen9nYnztBBBXaogmix+QtpYok3EWXesioKrL85nSs/PJqWm7ClOhCYwD0+Tijzsn1vuQzFGybfBkoQr51WYAyJlYfm4GE2LGwsijTRM7BUmao5Q0GGWXrWkukxA8Xgyp9OU7pkaJa7XArVpw88jf4Ya6BBwl9/n3M4Ud3iOL27vYk3wnJVlPqaPBIOzH6GeRwFyo4Ox8WSGE0lyyyJjje1SJUt8xs4436ZaL8cZ2CoyF8ZlBmorcxiReX+dJBSW+EUcc3t8ESsFdld75JbnleMH4oVVZBEcRIEJ6I/8vEc6S7pMskdV4+rnSsRIyA6HbTq44QsGQIfm47Pl+9c9zfHnZkHlPngvcb31irOKgrHDpLV4A29NrYSvkmSTJKWQFmxiEQ1dE8D0ZDAZlFSwDsiEx4iq6iOpjrtJ2jZZt1kzckUmXKlbSbL5T1ZT1k+giFsGjpmJFPxFHwDRijLGQzmo=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: manifoldco/python-manifoldco-signature

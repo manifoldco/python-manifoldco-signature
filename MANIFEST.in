@@ -1,0 +1,2 @@
+include versioneer.py
+include manifoldco_signature/_version.py
