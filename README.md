@@ -32,7 +32,7 @@ import manifoldco_signature as signature
 
 verifier = signature.Verifier()
 
-valid =  verifier.Verify('PUT', '/v1/resources', {}, {'host': 'yourdomain.com'}, 'request body')
+valid =  verifier.verify('PUT', '/v1/resources', {}, {'host': 'yourdomain.com'}, 'request body')
 if not valid:
     # return unauthorized
 ```
