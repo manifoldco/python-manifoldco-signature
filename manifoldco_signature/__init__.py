@@ -110,7 +110,7 @@ def _decode_base64(data):
     missing_padding = len(data) % 4
     if missing_padding != 0:
         data += '='* (4 - missing_padding)
-    return base64.urlsafe_b64decode(data)
+    return base64.urlsafe_b64decode(str(data))
 
 from ._version import get_versions
 __version__ = get_versions()['version']
