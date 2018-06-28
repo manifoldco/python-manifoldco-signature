@@ -91,15 +91,12 @@ class Verifier:
         :param body: The request body, as a string or bytes.
         :returns: A boolean indicating if the request is valid.
         """
-        try:
-            sigkey, sig = parse_signature(headers['x-signature'], self._master_key)
-            canonical = canonize_request(method, path, query, headers, body)
-            sigkey.verify(sig, canonical)
+        sigkey, sig = parse_signature(headers['x-signature'], self._master_key)
+        canonical = canonize_request(method, path, query, headers, body)
+        sigkey.verify(sig, canonical)
 
-            req_time = iso8601.parse_date(headers['date'])
-            return abs((req_time - _now()).total_seconds()) <= MAX_TIME_SKEW
-        except:
-            return False
+        req_time = iso8601.parse_date(headers['date'])
+        return abs((req_time - _now()).total_seconds()) <= MAX_TIME_SKEW
 
 
 def _now():
