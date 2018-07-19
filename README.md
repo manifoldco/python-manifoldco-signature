@@ -21,7 +21,7 @@ pip install manifoldco-signature
 As such, you'll need to manually pass in request data in the format the
 `Verifier` expects.
 
-In particular, header names must be lowercased and hyphen delimited.
+In particular, header names must be lowercased and hyphen delimited, and query param names and values must be url-encoded.
 
 If you're using a specific HTTP framework and would like native support for it
 included in this library, file an issue and let us know!
@@ -32,7 +32,13 @@ import manifoldco_signature as signature
 
 verifier = signature.Verifier()
 
-valid =  verifier.verify('PUT', '/v1/resources', {}, {'host': 'yourdomain.com'}, 'request body')
+
+method = 'PUT'
+path = '/v1/resources'
+query = {}  # must be url-encoded
+headers = {'host': 'yourdomain.com'}
+body = 'request body'
+valid =  verifier.verify(method, path, query, headers, body)
 if not valid:
     # return unauthorized
 ```
