@@ -20,6 +20,7 @@ def verify(master_key=None):
             verifier = Verifier(master_key=master_key)
 
             headers = {}
+            querydict = None
             for key, value in request.META.items():
                 if key == "CONTENT_TYPE":
                     headers["content-type"] = value
@@ -27,9 +28,20 @@ def verify(master_key=None):
                     headers["content-length"] = value
                 elif key.startswith("HTTP_"):
                     headers[key[5:].lower().replace("_", "-")] = value
+                elif key == "QUERY_STRING" and value:
+                    # Cannot use request.GET here because need
+                    # unescaped values
+                    pairs = value.split("&")
+                    querydict = dict(pair.split("=") for pair in pairs)
 
-            if not verifier.verify(request.method, request.path,
-                                   request.GET, headers, request.body):
+            kwargs = {
+                "method": request.method,
+                "path": request.path,
+                "query": querydict,
+                "headers": headers,
+                "body": request.body
+            }
+            if not verifier.verify(**kwargs):
                 return JsonResponse(status=401,
                                     data={"message": "Bad signature"})
 
